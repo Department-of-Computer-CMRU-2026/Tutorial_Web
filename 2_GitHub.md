@@ -1,0 +1,317 @@
+# คู่มือการใช้งาน GitHub
+
+คู่มือนี้จะอธิบายวิธีใช้งาน GitHub **สำหรับการทำงานคนเดียว** ตั้งแต่การตั้งค่าไปจนถึงการเก็บและส่งโค้ดขึ้น GitHub
+
+---
+
+## สารบัญ
+
+1. [GitHub คืออะไร](#github-คืออะไร)
+2. [การติดตั้งและตั้งค่า](#การติดตั้งและตั้งค่า)
+3. [การทำงานพื้นฐาน](#การทำงานพื้นฐาน)
+4. [การจัดการ Branch (ถ้าต้องการจัดระเบียบงาน)](#การจัดการ-branch-ถ้าต้องการจัดระเบียบงาน)
+5. [คำสั่ง Git ที่ใช้บ่อย](#คำสั่ง-git-ที่ใช้บ่อย)
+6. [แนวทางปฏิบัติที่ดี](#แนวทางปฏิบัติที่ดี)
+
+---
+
+## GitHub คืออะไร
+
+**GitHub** เป็นแพลตฟอร์มที่ใช้เก็บและจัดการโค้ด (repository) ด้วยระบบ **Git** เมื่อทำงานคนเดียว GitHub ช่วยให้คุณ:
+
+- เก็บประวัติการเปลี่ยนแปลงของโค้ด (version control) — ย้อนดูหรือกลับไปเวอร์ชันเก่าได้
+- เก็บโค้ดไว้บนคลาวด์ — ไม่ต้องพึ่งแค่เครื่องเดียว
+- เปิดเผยโปรเจกต์เป็น Public หรือเก็บเป็น Private ได้ตามต้องการ
+
+---
+
+## การติดตั้งและตั้งค่า
+
+### 1. สร้างบัญชี GitHub
+
+1. ไปที่ [github.com](https://github.com)
+2. กด **Sign up** แล้วกรอกอีเมล รหัสผ่าน และชื่อผู้ใช้
+3. ยืนยันอีเมลตามที่ระบบส่งมา
+
+### 2. ติดตั้ง Git บนเครื่อง
+
+- **Windows:** ดาวน์โหลดจาก [git-scm.com](https://git-scm.com) แล้วติดตั้ง
+- **macOS:** เปิด Terminal แล้วรัน `xcode-select --install` หรือติดตั้งผ่าน Homebrew: `brew install git`
+- **Linux:** ใช้คำสั่งของ package manager เช่น `sudo apt install git` (Ubuntu/Debian)
+
+ตรวจสอบว่าติดตั้งสำเร็จ:
+
+```bash
+git --version
+```
+
+### 3. ตั้งค่าชื่อและอีเมล (ครั้งแรกเท่านั้น)
+
+```bash
+git config --global user.name "ชื่อของคุณ"
+git config --global user.email "your.email@example.com"
+```
+
+อีเมลควรตรงกับอีเมลที่ใช้สมัคร GitHub
+
+### 4. เชื่อมต่อกับ GitHub ด้วย SSH (แนะนำ)
+
+1. สร้างคีย์ SSH:
+
+```bash
+ssh-keygen -t ed25519 -C "your.email@example.com"
+```
+
+กด Enter เพื่อใช้ path เริ่มต้น และตั้งรหัสผ่าน (หรือเว้นว่างได้)
+
+2. เปิด SSH agent แล้วเพิ่มคีย์:
+
+```bash
+# Windows (PowerShell)
+Get-Service ssh-agent | Set-Service -StartupType Manual
+Start-Service ssh-agent
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+
+# macOS / Linux
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+3. คัดลอกคีย์สาธารณะไปใส่ใน GitHub:
+   - ไปที่ **GitHub → Settings → SSH and GPG keys → New SSH key**
+   - วางเนื้อหาจากไฟล์ `~/.ssh/id_ed25519.pub` (หรือ `id_rsa.pub` ถ้าใช้ RSA)
+
+ทดสอบการเชื่อมต่อ:
+
+```bash
+ssh -T git@github.com
+```
+
+ถ้าขึ้นว่า "Hi username! You've successfully authenticated..." แสดงว่าพร้อมใช้แล้ว
+
+---
+
+## การทำงานพื้นฐาน
+
+### สร้าง Repository ใหม่บน GitHub
+
+1. กด **+** มุมขวาบน → **New repository**
+2. ตั้งชื่อ repo (เช่น `my-project`)
+3. เลือก Public หรือ Private
+4. (ไม่จำเป็น) เลือก **Add a README file** ถ้าอยากให้มี README ตั้งแต่แรก
+5. กด **Create repository**
+
+### นำโปรเจกต์ที่มีอยู่ขึ้น GitHub
+
+ถ้ามีโฟลเดอร์โปรเจกต์อยู่แล้วบนเครื่อง:
+
+```bash
+cd path/to/your-project
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin git@github.com:USERNAME/REPO-NAME.git
+git push -u origin main
+```
+
+แทนที่ `USERNAME` และ `REPO-NAME` ด้วยชื่อผู้ใช้และชื่อ repo จริง
+
+### Clone โปรเจกต์จาก GitHub มาไว้ที่เครื่อง
+
+```bash
+git clone git@github.com:USERNAME/REPO-NAME.git
+cd REPO-NAME
+```
+
+หรือใช้ HTTPS:
+
+```bash
+git clone https://github.com/USERNAME/REPO-NAME.git
+```
+
+### ขั้นตอนการแก้ไขและส่งโค้ด (Workflow ปกติ)
+
+1. **ดึงโค้ดล่าสุดจาก GitHub**
+
+```bash
+git pull origin main
+```
+
+2. **แก้ไขไฟล์** ตามที่ต้องการ (เขียนโค้ด แก้ README ฯลฯ)
+
+3. **ดูสถานะการเปลี่ยนแปลง**
+
+```bash
+git status
+```
+
+4. **เพิ่มไฟล์ที่ต้องการส่งขึ้น GitHub**
+
+```bash
+# เพิ่มทีละไฟล์
+git add filename.txt
+
+# เพิ่มทุกไฟล์ที่เปลี่ยน
+git add .
+
+# เพิ่มเฉพาะไฟล์ที่ตรง pattern
+git add src/*.js
+```
+
+5. **สร้าง Commit (บันทึกจุดหนึ่งของประวัติ)**
+
+```bash
+git commit -m "อธิบายสั้นๆ ว่าแก้อะไร หรือเพิ่มฟีเจอร์อะไร"
+```
+
+ข้อความ commit ควรสั้น ตรงประเด็น และเป็นปัจจุบัน (present tense) เช่น "Add login form" หรือ "Fix navbar on mobile"
+
+6. **ส่งโค้ดขึ้น GitHub**
+
+```bash
+git push origin main
+```
+
+ถ้าตั้ง `-u origin main` ไว้แล้ว สามารถใช้แค่:
+
+```bash
+git push
+```
+
+### ดูประวัติ Commit
+
+```bash
+git log
+```
+
+กด `q` เพื่อออกจากมุมมอง log
+
+ดูแบบย่อหนึ่งบรรทัดต่อ commit:
+
+```bash
+git log --oneline
+```
+
+---
+
+## การจัดการ Branch (ถ้าต้องการจัดระเบียบงาน)
+
+เมื่อทำงานคนเดียว คุณสามารถใช้แค่ branch เดียว (`main`) ก็ได้ แต่ถ้าอยากลองฟีเจอร์ใหม่หรือทดลองอะไรโดยไม่กระทบโค้ดหลัก **Branch** คือสายการพัฒนาอีกเส้นหนึ่งที่ใช้แยกงานได้
+
+### สร้างและสลับไป Branch ใหม่
+
+```bash
+git branch feature-login      # สร้าง branch ชื่อ feature-login
+git checkout feature-login    # สลับไปใช้ branch นี้
+```
+
+หรือสร้างและสลับในคำสั่งเดียว:
+
+```bash
+git checkout -b feature-login
+```
+
+ใน Git เวอร์ชันใหม่สามารถใช้:
+
+```bash
+git switch -c feature-login
+```
+
+### ดู Branch ทั้งหมด
+
+```bash
+git branch
+```
+
+เครื่องหมาย `*` คือ branch ที่กำลังอยู่
+
+### ส่ง Branch ขึ้น GitHub
+
+```bash
+git push -u origin feature-login
+```
+
+หลังจากนั้นสามารถใช้ `git push` ได้เลยเมื่ออยู่ที่ branch นี้
+
+### รวม Branch เข้ากับ main
+
+เมื่อทำงานบน branch เสร็จแล้ว:
+
+1. สลับกลับไปที่ `main` แล้วดึงโค้ดล่าสุด:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+2. รวม branch เข้า main:
+
+```bash
+git merge feature-login
+```
+
+3. ส่งผลลัพธ์ขึ้น GitHub:
+
+```bash
+git push origin main
+```
+
+4. (ถ้าไม่ใช้แล้ว) ลบ branch locally และบน GitHub:
+
+```bash
+git branch -d feature-login
+git push origin --delete feature-login
+```
+
+---
+
+## คำสั่ง Git ที่ใช้บ่อย
+
+| คำสั่ง | ความหมาย |
+|--------|-----------|
+| `git status` | ดูว่าไฟล์ไหนถูกแก้/เพิ่ม/ยังไม่ add |
+| `git add .` | เพิ่มการเปลี่ยนแปลงทั้งหมดเข้า staging |
+| `git commit -m "ข้อความ"` | สร้าง commit พร้อมข้อความ |
+| `git push` | ส่ง commit ขึ้น remote (เช่น GitHub) |
+| `git pull` | ดึงและรวมโค้ดล่าสุดจาก remote |
+| `git log` | ดูประวัติ commit |
+| `git diff` | ดูความต่างของโค้ดที่ยังไม่ commit |
+| `git checkout -- filename` | ยกเลิกการแก้ไขในไฟล์ (ก่อน commit) |
+| `git branch` | ดูรายการ branch |
+| `git checkout branch-name` | สลับไปใช้ branch อื่น |
+| `git merge branch-name` | รวม branch เข้า branch ปัจจุบัน |
+| `git clone URL` | โหลด repo จาก GitHub มาไว้ที่เครื่อง |
+| `git remote -v` | ดู remote ที่ผูกไว้ (เช่น origin) |
+
+---
+
+## แนวทางปฏิบัติที่ดี
+
+1. **Commit บ่อย แต่ละ commit ควรเป็นหน่วยงานเดียว**  
+   เช่น แก้บั๊กหนึ่งจุด หรือเพิ่มฟีเจอร์หนึ่งอย่าง
+
+2. **เขียน commit message ให้เข้าใจได้**  
+   ใช้ present tense และอธิบายว่า “ทำอะไร” ไม่ใช่ “ทำไปแล้ว”
+
+3. **ดึงโค้ดก่อน push (ถ้าใช้หลายเครื่อง)**  
+   ถ้าแก้โค้ดจากเครื่องอื่นหรือจากเว็บ GitHub แล้ว ควรรัน `git pull origin main` ก่อน `git push` เพื่อลด conflict
+
+4. **ใช้ branch ได้เมื่ออยากจัดระเบียบงาน**  
+   เช่น ลองฟีเจอร์ใหม่ใน branch แยก แล้วค่อย merge เข้า `main` เมื่อพร้อม
+
+5. **เขียน README และ .gitignore**  
+   README อธิบายวิธีรันโปรเจกต์; .gitignore กันไม่ให้ส่งไฟล์ที่ไม่จำเป็น (เช่น `node_modules`, `.env`) ขึ้น GitHub
+
+6. **อย่า commit ข้อมูลลับ**  
+   ไม่ใส่รหัสผ่าน, API key หรือ token ในโค้ดที่ push ขึ้น GitHub ใช้ตัวแปรสภาพแวดล้อมหรือ secret management แทน
+
+---
+
+## ลิงก์ที่เป็นประโยชน์
+
+- [เอกสาร Git (อย่างเป็นทางการ)](https://git-scm.com/doc)
+- [GitHub Docs](https://docs.github.com)
+- [GitHub Learning Lab](https://skills.github.com/) — ฝึกใช้ Git และ GitHub แบบมีแบบฝึกหัด
+
+---
