@@ -2,6 +2,8 @@
 
 เอกสารนี้อธิบายการใช้งาน **Laravel** อย่างละเอียด อ่านแล้วเข้าใจง่าย เหมาะสำหรับผู้ที่เพิ่งเริ่มต้น
 
+**เอกสารอ้างอิงอย่างเป็นทางการ:** [Laravel 12.x Documentation](https://laravel.com/docs/12.x) — ใช้เป็นตัวอย่างและอัปเดตเวอร์ชันล่าสุด
+
 ---
 
 ## สารบัญ
@@ -50,18 +52,111 @@ php -v
 composer --version
 ```
 
-### สร้างโปรเจกต์ใหม่
+### วิธีการสร้างโปรเจกต์แบบใหม่
+
+#### ขั้นตอนที่ 1: สร้างโปรเจกต์
+
+มีสองวิธีหลัก (อ้างอิงจาก [Laravel 12.x - Creating a Laravel Application](https://laravel.com/docs/12.x#creating-a-laravel-application)):
+
+**วิธีที่ 1 — ใช้ Composer (ไม่ต้องติดตั้ง Laravel Installer)**
+
+เปิด Terminal แล้วรัน:
 
 ```bash
 composer create-project laravel/laravel ชื่อโปรเจกต์
 ```
 
-ตัวอย่าง:
+ตัวอย่าง — สร้างโปรเจกต์ชื่อ `my-app`:
 
 ```bash
 composer create-project laravel/laravel my-app
+```
+
+**วิธีที่ 2 — ใช้ Laravel Installer (ต้องติดตั้งก่อน)**
+
+ติดตั้ง Laravel Installer ครั้งเดียว:
+
+```bash
+composer global require laravel/installer
+```
+
+จากนั้นสร้างโปรเจกต์:
+
+```bash
+laravel new example-app
+```
+
+- Installer จะถามให้เลือก testing framework, database, และ starter kit ได้
+- เมื่อเสร็จจะได้โฟลเดอร์โปรเจกต์ในตำแหน่งปัจจุบัน
+
+#### ขั้นตอนที่ 2: เข้าไปในโฟลเดอร์โปรเจกต์
+
+```bash
 cd my-app
 ```
+
+#### ขั้นตอนที่ 3: ตั้งค่าโปรเจกต์ (ครั้งแรก)
+
+หลังสร้างโปรเจกต์ใหม่ Laravel จะมีไฟล์ `.env` อยู่แล้ว และจะรัน `php artisan key:generate` ให้อัตโนมัติ — ไม่ต้องทำซ้ำ
+
+ถ้าเปิดโปรเจกต์เก่าที่ยังไม่มี key หรือย้ายเครื่อง ให้รัน:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+- `.env` เก็บค่าสภาพแวดล้อม (รหัส DB, APP_KEY ฯลฯ) — **อย่า commit ไฟล์นี้ขึ้น Git**
+- `key:generate` สร้างค่า `APP_KEY` สำหรับเข้ารหัส session/cookie
+
+#### ขั้นตอนที่ 4: ตั้งค่าฐานข้อมูล (ถ้าใช้)
+
+แก้ไขไฟล์ **`.env`** ให้ตรงกับเซิร์ฟเวอร์ฐานข้อมูลของคุณ เช่น:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+จากนั้นสร้างตาราง (ถ้ามี migration):
+
+```bash
+php artisan migrate
+```
+
+#### ขั้นตอนที่ 5: รันเซิร์ฟเวอร์พัฒนา
+
+**แบบธรรมดา (เฉพาะ Laravel):**
+
+```bash
+php artisan serve
+```
+
+**แบบรัน Frontend ด้วย (Vite + Laravel) — ตาม [Laravel 12.x](https://laravel.com/docs/12.x#creating-a-laravel-application):**
+
+```bash
+npm install && npm run build
+composer run dev
+```
+
+- `composer run dev` จะรันทั้ง PHP server และ Vite (ถ้าโปรเจกต์มี frontend)
+- เปิดเบราว์เซอร์ที่ **http://127.0.0.1:8000** หรือ **http://localhost:8000** จะเห็นหน้า welcome ของ Laravel
+
+---
+
+### ตัวเลือกเพิ่มเติมเมื่อสร้างโปรเจกต์
+
+| วัตถุประสงค์ | คำสั่ง |
+|--------------|--------|
+| สร้างโปรเจกต์ในโฟลเดอร์ปัจจุบัน | `composer create-project laravel/laravel .` (ต้องเป็นโฟลเดอร์ว่าง) |
+| กำหนดเวอร์ชัน Laravel | `composer create-project laravel/laravel my-app "12.*"` หรือ `"11.*"` |
+| ติดตั้งแบบไม่รัน script (เช่น ไม่ถามยืนยัน) | `composer create-project laravel/laravel my-app --no-interaction` |
+
+---
 
 ### รันเซิร์ฟเวอร์พัฒนา
 
@@ -69,7 +164,7 @@ cd my-app
 php artisan serve
 ```
 
-จากนั้นเปิดเบราว์เซอร์ที่: **http://127.0.0.1:8000**
+จากนั้นเปิดเบราว์เซอร์ที่: **http://127.0.0.1:8000** หรือ **http://localhost:8000**
 
 ---
 
