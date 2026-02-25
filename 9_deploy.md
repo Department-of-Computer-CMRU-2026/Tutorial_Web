@@ -59,15 +59,24 @@ docker compose exec -u 0 app php artisan storage:link
 ##2 ตัวอย่าง `.env` สำหรับนักศึกษา
 
 ```env
-COMPOSE_PROJECT_NAME=std65123800   # ← เปลี่ยนเป็น Student ID ของตัวเอง
-WEB_PORT=8080                       # ← เปลี่ยน port ให้ไม่ซ้ำกัน
+# Student Configuration
+# Change '66xxxxxx' to your Student ID (e.g. 66123456)
+# Web Port: Any unique port (e.g. 8000 + last 2 digits)
+STUDENT_ID=std66xxxxxx
+STUDENT_NAME=std66xxxxxx
+COMPOSE_PROJECT_NAME=std66xxxxxx
+STUDENT_PORT=6xxx
+FORWARD_DB_PORT=6xxx
 
+# Database Configuration
+# Hostname: std{ID}-db
+# Database Port: Any unique port (e.g. 5400 + last 2 digits)
 DB_CONNECTION=pgsql
-DB_HOST=db
+DB_HOST=std66xxxxxx-db
 DB_PORT=5432
-DB_DATABASE=laravel
-DB_USERNAME=laravel
-DB_PASSWORD=secret
+DB_DATABASE=db_name
+DB_USERNAME=db_66xxxxxx
+DB_PASSWORD=db_password
 ```
 
 ---
