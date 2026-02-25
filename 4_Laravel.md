@@ -106,26 +106,6 @@ bun install && bun run build
 
 ---
 
-### ตัวเลือกเพิ่มเติมเมื่อสร้างโปรเจกต์
-
-| วัตถุประสงค์ | คำสั่ง |
-|--------------|--------|
-| สร้างโปรเจกต์ในโฟลเดอร์ปัจจุบัน | `composer create-project laravel/laravel .` (ต้องเป็นโฟลเดอร์ว่าง) |
-| กำหนดเวอร์ชัน Laravel | `composer create-project laravel/laravel my-app "12.*"` หรือ `"11.*"` |
-| ติดตั้งแบบไม่รัน script (เช่น ไม่ถามยืนยัน) | `composer create-project laravel/laravel my-app --no-interaction` |
-
----
-
-### รันเซิร์ฟเวอร์พัฒนา
-
-```bash
-php artisan serve
-```
-
-จากนั้นเปิดเบราว์เซอร์ที่: **http://127.0.0.1:8000** หรือ **http://localhost:8000**
-
----
-
 ## โครงสร้างโฟลเดอร์โปรเจกต์
 
 เมื่อสร้างโปรเจกต์ Laravel จะได้โฟลเดอร์ประมาณนี้ (สรุปเฉพาะที่มือใหม่ควรรู้):
