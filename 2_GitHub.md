@@ -219,9 +219,6 @@ git log --oneline
 3. **ดึงโค้ดก่อน push (ถ้าใช้หลายเครื่อง)**  
    ถ้าแก้โค้ดจากเครื่องอื่นหรือจากเว็บ GitHub แล้ว ควรรัน `git pull origin main` ก่อน `git push` เพื่อลด conflict
 
-4. **ใช้ branch ได้เมื่ออยากจัดระเบียบงาน**  
-   เช่น ลองฟีเจอร์ใหม่ใน branch แยก แล้วค่อย merge เข้า `main` เมื่อพร้อม
-
 5. **เขียน README และ .gitignore**  
    README อธิบายวิธีรันโปรเจกต์; .gitignore กันไม่ให้ส่งไฟล์ที่ไม่จำเป็น (เช่น `node_modules`, `.env`) ขึ้น GitHub
 
