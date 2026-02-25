@@ -65,19 +65,7 @@ laravel new example-app
 cd my-app
 ```
 
-#### ขั้นตอนที่ 3: ตั้งค่าโปรเจกต์ (ครั้งแรก)
-
-หลังสร้างโปรเจกต์ใหม่ Laravel จะมีไฟล์ `.env` อยู่แล้ว และจะรัน `php artisan key:generate` ให้อัตโนมัติ — ไม่ต้องทำซ้ำ
-
-ถ้าเปิดโปรเจกต์เก่าที่ยังไม่มี key หรือย้ายเครื่อง ให้รัน:
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
 - `.env` เก็บค่าสภาพแวดล้อม (รหัส DB, APP_KEY ฯลฯ) — **อย่า commit ไฟล์นี้ขึ้น Git**
-- `key:generate` สร้างค่า `APP_KEY` สำหรับเข้ารหัส session/cookie
 
 #### ขั้นตอนที่ 4: ตั้งค่าฐานข้อมูล (ถ้าใช้)
 
