@@ -13,8 +13,7 @@
 5. [Composer](#composer)
 6. [Laravel](#laravel)
 7. [DBeaver](#dbeaver)
-8. [FileZilla](#filezilla)
-9. [Google Antigravity](#google-antigravity)
+8. [Google Antigravity](#google-antigravity)
 
 ---
 
@@ -116,12 +115,6 @@ laravel --version
 ## DBeaver
 
 - ดาวน์โหลดจาก [dbeaver.io](https://dbeaver.io/download/) เลือก Community Edition แล้วติดตั้งตามตัวติดตั้งของแต่ละ OS
-
----
-
-## FileZilla
-
-- ดาวน์โหลดจาก [filezilla-project.org](https://filezilla-project.org/download.php?type=client) แล้วติดตั้ง
 
 ---
 
