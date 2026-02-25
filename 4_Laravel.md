@@ -129,15 +129,15 @@ bun install && bun run build
 
 ## การทำงานของ Laravel (Request → Response)
 
- flow การทำงานแบบย่อ:
+สรุปการทำงานของ Laravel + Livewire
 
-1. ผู้ใช้เปิด **URL** (เช่น `/about`) ในเบราว์เซอร์
-2. Laravel ดูใน **routes** ว่า URL นี้ไปที่ไหน (เช่น ไปที่ Controller ตัวไหน, method ไหน)
-3. **Controller** ทำงาน (อาจดึงข้อมูลจาก Model, คำนวณ ฯลฯ)
-4. Controller **return View** หรือ **return redirect** หรือ **return response**
-5. Laravel ส่ง **Response** กลับไปให้เบราว์เซอร์
+1. ผู้ใช้เปิด URL: Laravel ดูใน routes ว่า URL นี้เชื่อมกับ Livewire Component ตัวไหน
+2. Initial Load: Component ทำการ Render หน้า HTML ครั้งแรกส่งกลับไปให้เบราว์เซอร์ (เหมือน MVC ปกติ)
+3. User Interaction: เมื่อผู้ใช้ทำบางอย่าง (เช่น คลิกปุ่ม wire:click) Livewire จะส่ง Request ไปที่เซิร์ฟเวอร์แบบเบื้องหลัง (AJAX)
+4. Component ทำงาน: ตัว Class ของ Component (PHP) จะรัน Method หรืออัปเดตค่าตัวแปร (Properties) ตามที่สั่ง
+5. Smart Response: Livewire ส่งเฉพาะ HTML ส่วนที่เปลี่ยนแปลงกลับไปอัปเดตบนหน้าจอให้ทันที โดยไม่ต้อง Refresh หน้าเว็บ
 
-ดังนั้น สิ่งที่เราต้องทำคือ: **กำหนด Route → เขียน Controller → สร้าง View (ถ้าเป็นหน้า HTML)**
+ดังนั้น สิ่งที่คุณต้องทำคือ กำหนด Route → สร้าง Component Class (เขียน Logic) → สร้าง Component View (ใช้คำสั่ง wire:)
 
 ---
 
