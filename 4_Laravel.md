@@ -42,12 +42,6 @@ composer --version
 composer create-project laravel/laravel ชื่อโปรเจกต์
 ```
 
-ตัวอย่าง — สร้างโปรเจกต์ชื่อ `my-app`:
-
-```bash
-composer create-project laravel/laravel my-app
-```
-
 **วิธีที่ 2 — ใช้ Laravel Installer (ต้องติดตั้งก่อน)**
 
 ติดตั้ง Laravel Installer ครั้งเดียว:
