@@ -91,14 +91,14 @@ php artisan migrate
 **แบบธรรมดา (เฉพาะ Laravel):**
 
 ```bash
-php artisan serve
+#php artisan serve
 ```
 
 **แบบรัน Frontend ด้วย (Vite + Laravel) — ตาม [Laravel 12.x](https://laravel.com/docs/12.x#creating-a-laravel-application):**
 
 ```bash
-npm install && npm run build
-composer run dev
+bun install && bun run build
+#composer run dev
 ```
 
 - `composer run dev` จะรันทั้ง PHP server และ Vite (ถ้าโปรเจกต์มี frontend)
