@@ -153,24 +153,6 @@ bun install && bun run build
 | `php artisan migrate:rollback` | ย้อน migration ชุดล่าสุด |
 | `php artisan make:model Product -m` | สร้าง Model พร้อม Migration |
 | `php artisan route:list` | แสดงรายการ Route ทั้งหมด |
-| `php artisan tinker` | เปิด PHP REPL ในโปรเจกต์ (ลอง Model ได้) |
 
 ---
-
-## สรุปแนวทางสำหรับมือใหม่
-
-1. **เริ่มจาก Route** — เปิด `routes/web.php` กำหนด URL กับ Controller/method
-2. **สร้าง Controller** — `php artisan make:controller ...` แล้วเขียน method รับ request, คืน view หรือ redirect
-3. **สร้าง View** — ใส่ไฟล์ `.blade.php` ใน `resources/views/` แล้วใช้ `return view('ชื่อ');` ใน Controller
-4. **ใช้ Model เมื่อมีฐานข้อมูล** — สร้าง Model + Migration แล้วใช้ Eloquent ใน Controller เพื่อดึง/บันทึกข้อมูล
-5. **รับฟอร์มด้วย Request** — ใช้ `$request->validate([...])` เพื่อตรวจข้อมูล แล้วค่อยบันทึกลง Model
-6. **ฝึกใช้ `php artisan route:list`** — ช่วยให้เห็นภาพว่า URL ไปที่ไหน
-7. **อ่าน Error ในหน้าเว็บและในเทอร์มินัล** — Laravel แจ้งข้อผิดพลาดค่อนข้างชัด
-
-ถ้าทำตามขั้นตอนนี้และลองเขียนหน้าเล็กๆ หนึ่งหน้า (เช่น หน้ารายการสินค้า + ฟอร์มเพิ่มสินค้า) จะเริ่มคุ้นกับ flow ของ Laravel ได้เร็ว
-
----
-
-*คู่มือนี้เขียนสำหรับมือใหม่ อ่านแล้วเข้าใจง่าย และสามารถนำไปปฏิบัติตามได้ทันที*
-
 
