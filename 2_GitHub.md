@@ -204,14 +204,7 @@ git log --oneline
 | `git commit -m "ข้อความ"` | สร้าง commit พร้อมข้อความ |
 | `git push` | ส่ง commit ขึ้น remote (เช่น GitHub) |
 | `git pull` | ดึงและรวมโค้ดล่าสุดจาก remote |
-| `git log` | ดูประวัติ commit |
-| `git diff` | ดูความต่างของโค้ดที่ยังไม่ commit |
-| `git checkout -- filename` | ยกเลิกการแก้ไขในไฟล์ (ก่อน commit) |
-| `git branch` | ดูรายการ branch |
-| `git checkout branch-name` | สลับไปใช้ branch อื่น |
-| `git merge branch-name` | รวม branch เข้า branch ปัจจุบัน |
 | `git clone URL` | โหลด repo จาก GitHub มาไว้ที่เครื่อง |
-| `git remote -v` | ดู remote ที่ผูกไว้ (เช่น origin) |
 
 ---
 
