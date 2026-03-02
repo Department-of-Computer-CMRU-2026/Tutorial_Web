@@ -106,8 +106,6 @@ docker rm -f web
 
    ```bash
    docker compose up -d
-   
-   docker compose exec app php artisan migrate
    ```
 
    - `up` = เปิดทุกอย่างที่เขากำหนดไว้
@@ -131,6 +129,8 @@ docker compose down
 
 ```bash
 docker compose up -d --build
+
+docker compose exec app php artisan migrate
 ```
 
 แปลว่า “อัปเดตแล้วให้ build ใหม่แล้วค่อยเปิด” — ใช้เมื่อมีแก้ Dockerfile หรือตั้งค่าแล้วเขาบอกให้ build ใหม่
