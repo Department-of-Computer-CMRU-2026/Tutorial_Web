@@ -106,6 +106,7 @@ docker rm -f web
 
    ```bash
    docker compose up -d
+   docker compose exec app php artisan migrate
    ```
 
    - `up` = เปิดทุกอย่างที่เขากำหนดไว้
